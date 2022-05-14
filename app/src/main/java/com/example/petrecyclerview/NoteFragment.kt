@@ -19,16 +19,18 @@ class NoteFragment : Fragment() {
 
     private lateinit var binding: NoteFragmentBinding
 
+    val onClickListener: NoteAdapter.OnNoteClickListener = object :NoteAdapter.OnNoteClickListener{
+        override fun onNoteClick(note: Note) {
+            view?.findNavController()?.navigate(NoteFragmentDirections.actionNoteFragment2ToSingleNoteFragment(note))
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater,R.layout.note_fragment,container,false)
 
         viewModel =ViewModelProvider(this).get(NoteViewModel::class.java)
-
-        binding.button.setOnClickListener {
-            //viewModel.roflFunction()
-            view?.findNavController()?.navigate(NoteFragmentDirections.actionNoteFragment2ToSingleNoteFragment(Note(101,"alo","description by alo")))
-        }
+        viewModel.initOnClickListener(onClickListener)
 
         //binding.noteRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.noteRecyclerView.adapter = viewModel.getAdapter()

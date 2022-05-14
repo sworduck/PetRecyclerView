@@ -1,9 +1,13 @@
 package com.example.petrecyclerview
 
+import android.content.Intent
 import android.util.Log
 import androidx.lifecycle.ViewModel
 
 class NoteViewModel : ViewModel() {
+
+    lateinit var onClickListener: NoteAdapter.OnNoteClickListener
+
     private var wordList: MutableList<String> = mutableListOf()
 
     private var noteList: MutableList<Note> = mutableListOf()
@@ -12,6 +16,10 @@ class NoteViewModel : ViewModel() {
 
     init {
         resetList()
+    }
+
+    fun initOnClickListener(listner: NoteAdapter.OnNoteClickListener){
+        onClickListener = listner
     }
 
     fun getAdapter():NoteAdapter{
