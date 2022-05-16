@@ -8,8 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
-import com.example.petrecyclerview.databinding.NoteFragmentBinding
 import com.example.petrecyclerview.databinding.SingleNoteFragmentBinding
+import java.time.Instant
+import java.time.LocalDateTime
+import java.util.*
 
 class SingleNoteFragment : Fragment() {
 
@@ -28,7 +30,7 @@ class SingleNoteFragment : Fragment() {
 
             val args = SingleNoteFragmentArgs.fromBundle(requireArguments())
 
-            binding.textView2.text = "Описание: ${args.note.description}"
+            binding.textView2.text = viewModel.noteToStringForThisFragment(args.note)
 
             binding.button2.setOnClickListener {
                 view?.findNavController()?.navigate(SingleNoteFragmentDirections.actionSingleNoteFragmentToNoteFragment2())
