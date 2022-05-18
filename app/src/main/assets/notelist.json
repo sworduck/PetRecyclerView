@@ -1,0 +1,219 @@
+[
+    {
+      "id": 1,
+      "date_start": 1643681509,
+      "date_finish": 1643681569,
+      "name": "Проснуться",
+      "description": "Подъем, душ, кофе"
+    },
+    {
+      "id": 2,
+      "date_start": 1643667169,
+      "date_finish": 1643668362,
+      "name": "Отдых",
+      "description": "Посмотреть кино"
+    },
+    {
+      "id": 3,
+      "date_start": 1643743962,
+      "date_finish": 1643744351,
+      "name": "Уборка",
+      "description": "Помыть полы"
+    },
+    {
+      "id": 4,
+      "date_start": 1643755151,
+      "date_finish": 1643756111,
+      "name": "Мусор",
+      "description": "Собрать и вынести мусор"
+    },
+    {
+      "id": 5,
+      "date_start": 1643836942,
+      "date_finish": 1643837421,
+      "name": "Завтрак",
+      "description": "Приготовить завтрак"
+    },
+    {
+      "id": 6,
+      "date_start": 1643918973,
+      "date_finish": 1643920173,
+      "name": "Обед",
+      "description": "Приготовить обед"
+    },
+    {
+      "id": 7,
+      "date_start": 1644015312,
+      "date_finish": 1644015612,
+      "name": "Ужин",
+      "description": "Приготовить ужин"
+    },
+    {
+      "id": 8,
+      "date_start": 1644099742,
+      "date_finish": 1644100873,
+      "name": "Продукты",
+      "description": "Купить продукты"
+    },
+    {
+      "id": 9,
+      "date_start": 1644182155,
+      "date_finish": 1644184795,
+      "name": "Помощь",
+      "description": "Помочь перенести вещи"
+    },
+    {
+      "id": 10,
+      "date_start": 1644272164,
+      "date_finish": 1644275764,
+      "name": "Посуда",
+      "description": "Помыть посуду"
+    },
+    {
+      "id": 11,
+      "date_start": 1644352861,
+      "date_finish": 1644353537,
+      "name": "Прогулка",
+      "description": "Выйти подышать на улицу"
+    },
+    {
+      "id": 12,
+      "date_start": 1644447137,
+      "date_finish": 1644447437,
+      "name": "Отдых",
+      "description": "Поиграть в gunfire"
+    },
+    {
+      "id": 13,
+      "date_start": 1644529484,
+      "date_finish": 1644530100,
+      "name": "Просмотр видео",
+      "description": "Посмотреть видео"
+    },
+    {
+      "id": 14,
+      "date_start": 1644611569,
+      "date_finish": 1644612724,
+      "name": "Отдых",
+      "description": "Прослушивание музыки"
+    },
+    {
+      "id": 15,
+      "date_start": 1644700941,
+      "date_finish": 1644702321,
+      "name": "Универ",
+      "description": "Посетить пары"
+    },
+    {
+      "id": 16,
+      "date_start": 1644783174,
+      "date_finish": 1644783834,
+      "name": "Учеба",
+      "description": "Сделать дз"
+    },
+    {
+      "id": 17,
+      "date_start": 1644880942,
+      "date_finish": 1644881473,
+      "name": "Интернет",
+      "description": "Сидеть в интернете"
+    },
+    {
+      "id": 18,
+      "date_start": 1644963259,
+      "date_finish": 1644968479,
+      "name": "Зарядка",
+      "description": "Утренняя зарядка"
+    },
+    {
+      "id": 19,
+      "date_start": 1645043012,
+      "date_finish": 1645043352,
+      "name": "Курсы",
+      "description": "Прослушивание/просмотр курсов"
+    },
+    {
+      "id": 20,
+      "date_start": 1645132934,
+      "date_finish": 1645134134,
+      "name": "Дела",
+      "description": "Выполенение задуманных дел"
+    },
+    {
+      "id": 21,
+      "date_start": 1645134134,
+      "date_finish": 1645220954,
+      "name": "Посуда",
+      "description": "Помыть посуду"
+    },
+    {
+      "id": 22,
+      "date_start": 1645312511,
+      "date_finish": 1645314911,
+      "name": "Прогулка",
+      "description": "Выйти подышать на улицу"
+    },
+    {
+      "id": 23,
+      "date_start": 1645389473,
+      "date_finish": 1645390793,
+      "name": "Отдых",
+      "description": "Поиграть в gunfire"
+    },
+    {
+      "id": 24,
+      "date_start": 1645483913,
+      "date_finish": 1645484393,
+      "name": "Просмотр видео",
+      "description": "Посмотреть видео"
+    },
+    {
+      "id": 25,
+      "date_start": 1645565082,
+      "date_finish": 1645566144,
+      "name": "Отдых",
+      "description": "Прослушивание музыки"
+    },
+    {
+      "id": 26,
+      "date_start": 1645653614,
+      "date_finish": 1645653674,
+      "name": "Универ",
+      "description": "Посетить пары"
+    },
+    {
+      "id": 27,
+      "date_start": 1645739543,
+      "date_finish": 1645739684,
+      "name": "Учеба",
+      "description": "Сделать дз"
+    },
+    {
+      "id": 28,
+      "date_start": 1645820599,
+      "date_finish": 1645822519,
+      "name": "Интернет",
+      "description": "Сидеть в интернете"
+    },
+    {
+      "id": 29,
+      "date_start": 1645917851,
+      "date_finish": 1645918932,
+      "name": "Зарядка",
+      "description": "Утренняя зарядка"
+    },
+    {
+      "id": 30,
+      "date_start": 1645999871,
+      "date_finish": 1646001763,
+      "name": "Курсы",
+      "description": "Прослушивание/просмотр курсов"
+    },
+    {
+      "id": 31,
+      "date_start": 1643661763,
+      "date_finish": 1643662363,
+      "name": "Дело",
+      "description": "Выполнение дела"
+    }
+]

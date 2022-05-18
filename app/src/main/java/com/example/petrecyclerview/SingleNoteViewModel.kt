@@ -7,11 +7,20 @@ import java.util.*
 
 class SingleNoteViewModel : ViewModel() {
     fun noteToStringForThisFragment(n:Note):String{
-        val ldt: LocalDateTime = LocalDateTime.ofInstant(
-            Instant.ofEpochSecond(n.timeStart.toLong()),
-            TimeZone.getDefault().toZoneId()
-        )
-        return "Описание: ${n.description} время: ${String.format("%02d",ldt.hour)}:${String.format("%02d",ldt.minute)} --- ${ldt.toString()}"
+        return if(n.name != "0") {
+            val ldt: LocalDateTime = LocalDateTime.ofInstant(
+                Instant.ofEpochSecond(n.date_start.toLong()),
+                TimeZone.getDefault().toZoneId()
+            )
+            "Описание: ${n.description} время: ${
+                String.format(
+                    "%02d",
+                    ldt.hour
+                )
+            }:${String.format("%02d", ldt.minute)} --- ${ldt.toString()}"
+        } else{
+            "-"
+        }
     }
     /*
             LocalDateTime now = LocalDateTime.now();

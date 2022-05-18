@@ -1,96 +1,82 @@
 package com.example.petrecyclerview
 
+import android.content.Context
 import android.content.Intent
 import android.util.Log
 import androidx.lifecycle.ViewModel
+import com.applandeo.materialcalendarview.EventDay
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import com.google.gson.JsonElement
+import com.google.gson.JsonParser.parseReader
+import com.google.gson.reflect.TypeToken
+import io.realm.Realm
+import io.realm.RealmConfiguration
+import java.io.IOException
+import java.io.InputStream
+import java.io.InputStreamReader
 import java.sql.Timestamp
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class NoteViewModel : ViewModel() {
-
-    private var wordList: MutableList<String> = mutableListOf()
-    private var timeStampList:MutableList<String> = mutableListOf()
-
     private var noteList: MutableList<Note> = mutableListOf()
 
-    private lateinit var noteAdapter:NoteAdapter
+    private var noteList2: MutableList<Note> = mutableListOf()
+
+    private var noteAdapter:NoteAdapter? = null
+
+    private lateinit var realm: Realm
 
     init {
-        resetList()
+        //noteAdapter = NoteAdapter(noteList,  )
+        //resetList()
+
     }
 
-    fun getAdapter(onClickListener: NoteAdapter.OnNoteClickListener):NoteAdapter{
-        noteAdapter = NoteAdapter(noteList,onClickListener)
-        return noteAdapter
+    fun initRealm(context: Context){
+        noteList2 = loadNotes(context)!!
+        Realm.init(context)
+        Realm.setDefaultConfiguration(
+            RealmConfiguration.Builder()
+                .allowWritesOnUiThread(true)
+                .allowQueriesOnUiThread(true)
+                .deleteRealmIfMigrationNeeded()
+                .build()
+        )
+        realm = Realm.getDefaultInstance()
+        realm.executeTransaction {
+            it.insertOrUpdate(noteList2)
+        }
     }
 
-    fun roflFunction(){
-        wordList.shuffle()
-        for (i in 0 until wordList.count()) {
+    private fun loadNotes(context: Context): MutableList<Note>? {
+        // In this case we're loading from local assets.
+        // NOTE: could alternatively easily load from network.
+        // However, that would need to happen on a background thread.
+        val stream: InputStream = try {
+            context.assets.open("notelist.json")
+        } catch (e: IOException) {
+            return null
+        }
+        val gson: Gson = GsonBuilder().create()
+        val json: JsonElement = parseReader(InputStreamReader(stream))
+        return gson.fromJson(json, object : TypeToken<MutableList<Note>?>() {}.type)
+    }
+
+    fun eventOfDay(eventDay: EventDay?) {
+        val ldt = LocalDateTime.ofInstant(eventDay!!.calendar.toInstant(),eventDay!!.calendar.timeZone.toZoneId())
+        var num:Long = eventDay.calendar.timeInMillis/1000//-86400
+        noteList = realm.where(Note::class.java).between("date_start",eventDay.calendar.timeInMillis/1000,eventDay.calendar.timeInMillis/1000+86400).findAll()
+        for(i in 0..23){
             noteAdapter!!.notifyItemChanged(i)
         }
+        //noteAdapter!!.notifyDataSetChanged()
     }
 
-    fun functionInsideAdapter(){
-        Log.i("TAG","functionInsideAdapter is called")
-    }
-
-    // TODO: Implement the ViewModel
-    private fun resetList() {
-        wordList = mutableListOf(
-            "queen",
-            "hospital",
-            "basketball",
-            "cat",
-            "change",
-            "snail",
-            "soup",
-            "calendar",
-            "sad",
-            "desk",
-            "guitar",
-            "home",
-            "railway",
-            "zebra",
-            "jelly",
-            "car",
-            "crow",
-            "trade",
-            "bag",
-            "roll",
-            "bubble",
-            "bag",
-            "roll",
-            "bubble"
-        )
-        timeStampList = mutableListOf(
-            "1652213002",
-            "1652216602",
-            "1652220202",
-            "1652223802",
-            "1652227402",
-            "1652231002",
-            "1652234602",
-            "1652238202",
-            "1652241802",
-            "1652245402",
-            "1652249002",
-            "1652252602",
-            "1652256202",
-            "1652259802",
-            "1652263402",
-            "1652267002",
-            "1652270602",
-            "1652274202",
-            "1652277802",
-            "1652281402",
-            "1652285002",
-            "1652288602",
-            "1652292202",
-            "1652295802"
-        )
-        wordList.shuffle()
-        for(i in 0..23){
-            noteList.add(i,Note(i,"$i",wordList[i],timeStampList[i],timeStampList[i]))
-        }
+    fun getAdapter(onClickListener: NoteAdapter.OnNoteClickListener):NoteAdapter?{
+        noteList.add(0,Note(21125,"name","description"))
+        noteAdapter = NoteAdapter(noteList,onClickListener)
+        return noteAdapter
     }
 }

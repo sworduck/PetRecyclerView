@@ -1,10 +1,11 @@
 package com.example.petrecyclerview
 
-import org.junit.Assert.*
+import org.junit.Assert.assertEquals
 import org.junit.Test
 import java.sql.Timestamp
 import java.time.Instant
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 /**
@@ -20,6 +21,14 @@ class ExampleUnitTest {
             Instant.ofEpochMilli(a.time),
             TimeZone.getDefault().toZoneId()
         )
+        val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")
+        formatter.format(triggerTime)
+        var num1 = "10001"
+        var num2 = "10000"
+        if (num1>num2)
+            println("num1 больше чем num2")
+
+        //val ldt:LocalDateTime = LocalDateTime.ofInstant(Calendar.toInstant(), Calendar);
 
         println(a.time)
         println(triggerTime)

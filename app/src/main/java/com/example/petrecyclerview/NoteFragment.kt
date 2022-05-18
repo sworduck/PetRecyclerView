@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.applandeo.materialcalendarview.CalendarView
 import com.example.petrecyclerview.databinding.NoteFragmentBinding
 
 class NoteFragment : Fragment() {
@@ -29,10 +30,16 @@ class NoteFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = DataBindingUtil.inflate(inflater,R.layout.note_fragment,container,false)
 
-        viewModel =ViewModelProvider(this).get(NoteViewModel::class.java)
+        viewModel = ViewModelProvider(this)[NoteViewModel::class.java]
+
 
         //binding.noteRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.noteRecyclerView.adapter = viewModel.getAdapter(onClickListener)
+
+        binding.calendarView.setOnDayClickListener { eventDay ->
+            viewModel.eventOfDay(eventDay)
+        }
+        viewModel.initRealm(this.requireActivity().applicationContext)
 
         return binding.root //inflater.inflate(R.layout.note_fragment, container, false)
     }
