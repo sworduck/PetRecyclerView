@@ -24,22 +24,16 @@ class NoteAdapter internal constructor(private val notes: List<Note>, private va
         return ViewHolder(itemView)
     }
 
+
+    //никакой логики тут!!!
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.noteTime.text = nowTime[position]
-        if(notes.isNotEmpty()&&notes.count()>position) {
+
                 holder.noteDescription.text = notes[position].description
                 holder.noteDescription.setOnClickListener {
                     //viewModel.functionInsideAdapter()
                     onClickListener.onNoteClick(notes[position])
                 }
-        }
-        else{
-            holder.noteDescription.text = "-"
-            holder.noteDescription.setOnClickListener {
-                //viewModel.functionInsideAdapter()
-                onClickListener.onNoteClick(defaultNote)
-            }
-        }
     }
 
     override fun getItemCount(): Int {

@@ -28,10 +28,18 @@ class NoteViewModel : ViewModel() {
 
     private lateinit var realm: Realm
 
+    private val defaultNote = Note(1111,"0","0")
+
     init {
         //noteAdapter = NoteAdapter(noteList,  )
         //resetList()
-
+        resetNoteList()
+    }
+    private fun resetNoteList(){
+        noteList.clear()
+        for (i in 0..23){
+            noteList.add(i,defaultNote)
+        }
     }
 
     fun initRealm(context: Context){
@@ -66,16 +74,20 @@ class NoteViewModel : ViewModel() {
 
     fun eventOfDay(eventDay: EventDay?) {
         val ldt = LocalDateTime.ofInstant(eventDay!!.calendar.toInstant(),eventDay!!.calendar.timeZone.toZoneId())
-        var num:Long = eventDay.calendar.timeInMillis/1000//-86400
-        noteList = realm.where(Note::class.java).between("date_start",eventDay.calendar.timeInMillis/1000,eventDay.calendar.timeInMillis/1000+86400).findAll()
-        for(i in 0..23){
-            noteAdapter!!.notifyItemChanged(i)
+        var noteListRealm = realm.where(Note::class.java).between("date_start",eventDay.calendar.timeInMillis/1000,eventDay.calendar.timeInMillis/1000+86400).findAll()
+        resetNoteList()
+        for(i in 0 until noteListRealm.count()){
+            noteList.removeAt(Timestamp(noteListRealm[i]!!.date_start*1000).hours)
+            noteList.add(Timestamp(noteListRealm[i]!!.date_start*1000).hours,noteListRealm[i]!!)
         }
-        //noteAdapter!!.notifyDataSetChanged()
+        noteAdapter!!.notifyDataSetChanged()//ИСПОЛЬЗОВАТЬ DIFFUTIL
+        //https://startandroid.ru/ru/blog/504-primer-ispolzovanija-android-diffutil.html
     }
 
     fun getAdapter(onClickListener: NoteAdapter.OnNoteClickListener):NoteAdapter?{
-        noteList.add(0,Note(21125,"name","description"))
+
+        //noteList.add(0,Note(21125,"name","description"))
+
         noteAdapter = NoteAdapter(noteList,onClickListener)
         return noteAdapter
     }
