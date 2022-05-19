@@ -1,9 +1,8 @@
 package com.example.petrecyclerview
 
 import android.content.Context
-import android.content.Intent
-import android.util.Log
 import androidx.lifecycle.ViewModel
+import androidx.recyclerview.widget.DiffUtil
 import com.applandeo.materialcalendarview.EventDay
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -17,7 +16,7 @@ import java.io.InputStream
 import java.io.InputStreamReader
 import java.sql.Timestamp
 import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
+
 
 class NoteViewModel : ViewModel() {
     private var noteList: MutableList<Note> = mutableListOf()
@@ -75,13 +74,26 @@ class NoteViewModel : ViewModel() {
     fun eventOfDay(eventDay: EventDay?) {
         val ldt = LocalDateTime.ofInstant(eventDay!!.calendar.toInstant(),eventDay!!.calendar.timeZone.toZoneId())
         var noteListRealm = realm.where(Note::class.java).between("date_start",eventDay.calendar.timeInMillis/1000,eventDay.calendar.timeInMillis/1000+86400).findAll()
-        resetNoteList()
-        for(i in 0 until noteListRealm.count()){
-            noteList.removeAt(Timestamp(noteListRealm[i]!!.date_start*1000).hours)
-            noteList.add(Timestamp(noteListRealm[i]!!.date_start*1000).hours,noteListRealm[i]!!)
+        //resetNoteList()
+        var newList:MutableList<Note> = mutableListOf()
+        for (i in 0..23){
+            newList.add(i,defaultNote)
         }
-        noteAdapter!!.notifyDataSetChanged()//ИСПОЛЬЗОВАТЬ DIFFUTIL
-        //https://startandroid.ru/ru/blog/504-primer-ispolzovanija-android-diffutil.html
+        for(i in 0 until noteListRealm.count()){
+            newList.removeAt(Timestamp(noteListRealm[i]!!.date_start*1000).hours)
+            newList.add(Timestamp(noteListRealm[i]!!.date_start*1000).hours,noteListRealm[i]!!)
+        }
+
+        /*
+        val noteDiffUtilCallback = NoteDiffUtilCallback(noteAdapter!!.getData(), newList)
+        val noteDiffResult = DiffUtil.calculateDiff(noteDiffUtilCallback)
+        noteAdapter!!.setData(newList)
+        noteDiffResult.dispatchUpdatesTo(noteAdapter!!)//вообще не вызывает нотифай
+
+         */
+        noteAdapter!!.setData(newList)
+        noteAdapter!!.notifyDataSetChanged()
+
     }
 
     fun getAdapter(onClickListener: NoteAdapter.OnNoteClickListener):NoteAdapter?{

@@ -2,6 +2,7 @@ package com.example.petrecyclerview
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -31,12 +32,13 @@ class NoteFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater,R.layout.note_fragment,container,false)
 
         viewModel = ViewModelProvider(this)[NoteViewModel::class.java]
-
+        Log.i("TAG", "crate fragment")
 
         //binding.noteRecyclerView.layoutManager = LinearLayoutManager(this)
         binding.noteRecyclerView.adapter = viewModel.getAdapter(onClickListener)
 
         binding.calendarView.setOnDayClickListener { eventDay ->
+            //binding.calendarView.setDate(eventDay.calendar)
             viewModel.eventOfDay(eventDay)
         }
         viewModel.initRealm(this.requireActivity().applicationContext)
