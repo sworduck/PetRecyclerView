@@ -23,6 +23,12 @@ class ExampleUnitTest {
         )
         val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm")
         formatter.format(triggerTime)
+
+        //новое
+        var time = triggerTime.format(DateTimeFormatter.ofPattern("HH:mm"))
+
+        //новое новое
+        var time2 = Instant.ofEpochMilli(1652295802000).atZone(TimeZone.getDefault().toZoneId()).toLocalDateTime().format(DateTimeFormatter.ofPattern("HH:mm"))
         var num1 = "10001"
         var num2 = "10000"
         if (num1>num2)
@@ -32,6 +38,8 @@ class ExampleUnitTest {
 
         println(a.time)
         println(triggerTime)
+        println(time)
+        println(time2)
 
         assertEquals(4, 2 + 2)
     }

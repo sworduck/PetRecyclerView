@@ -1,6 +1,8 @@
 package com.example.petrecyclerview
 
 import android.content.Context
+import android.util.Log
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.DiffUtil
 import com.applandeo.materialcalendarview.EventDay
@@ -16,9 +18,13 @@ import java.io.InputStream
 import java.io.InputStreamReader
 import java.sql.Timestamp
 import java.time.LocalDateTime
+import java.util.*
 
 
 class NoteViewModel : ViewModel() {
+    //пробую менять календарь
+    val calendar = MutableLiveData<Calendar>()
+
     private var noteList: MutableList<Note> = mutableListOf()
 
     private var noteList2: MutableList<Note> = mutableListOf()
@@ -30,9 +36,20 @@ class NoteViewModel : ViewModel() {
     private val defaultNote = Note(1111,"0","0")
 
     init {
+        //пробую менять календарь
+        if(calendar.value==null)
+        calendar.value = Calendar.getInstance()
+
+
         //noteAdapter = NoteAdapter(noteList,  )
         //resetList()
         resetNoteList()
+        Log.i("TAG", "create viewModel")
+    }
+
+    override fun onCleared() {
+        Log.i("TAG", "clear viewModel")
+        super.onCleared()
     }
     private fun resetNoteList(){
         noteList.clear()
@@ -72,6 +89,9 @@ class NoteViewModel : ViewModel() {
     }
 
     fun eventOfDay(eventDay: EventDay?) {
+        //изменяю календарь
+        calendar.value =eventDay!!.calendar
+        //изменяю календарь
         val ldt = LocalDateTime.ofInstant(eventDay!!.calendar.toInstant(),eventDay!!.calendar.timeZone.toZoneId())
         var noteListRealm = realm.where(Note::class.java).between("date_start",eventDay.calendar.timeInMillis/1000,eventDay.calendar.timeInMillis/1000+86400).findAll()
         //resetNoteList()
@@ -103,4 +123,5 @@ class NoteViewModel : ViewModel() {
         noteAdapter = NoteAdapter(noteList,onClickListener)
         return noteAdapter
     }
+
 }

@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_noteFragment2_to_singleNoteFragment"
             app:destination="@id/singleNoteFragment" />
+        <argument
+            android:name="calendar"
+            app:argType="java.util.Calendar" />
     </fragment>
     <fragment
         android:id="@+id/singleNoteFragment"

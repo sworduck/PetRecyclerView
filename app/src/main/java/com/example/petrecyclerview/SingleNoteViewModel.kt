@@ -3,6 +3,7 @@ package com.example.petrecyclerview
 import androidx.lifecycle.ViewModel
 import java.time.Instant
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 class SingleNoteViewModel : ViewModel() {
@@ -12,12 +13,8 @@ class SingleNoteViewModel : ViewModel() {
                 Instant.ofEpochSecond(n.date_start.toLong()),
                 TimeZone.getDefault().toZoneId()
             )
-            "Описание: ${n.description} время: ${
-                String.format(
-                    "%02d",
-                    ldt.hour
-                )
-            }:${String.format("%02d", ldt.minute)} --- ${ldt.toString()}"
+            "Название: ${n.name};\nОписание: ${n.description};\nВремя: ${ldt.format(
+                DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"))}"
         } else{
             "-"
         }

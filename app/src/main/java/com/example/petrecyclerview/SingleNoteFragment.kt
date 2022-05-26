@@ -2,6 +2,7 @@ package com.example.petrecyclerview
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -32,8 +33,14 @@ class SingleNoteFragment : Fragment() {
 
             binding.textView2.text = viewModel.noteToStringForThisFragment(args.note)
 
+
+                val calendar: Calendar = Calendar.getInstance()
+                calendar.timeInMillis = args.note.date_start * 1000
+                Log.i("TAG", "год: ${calendar.time.year}, ${calendar.time}")
+
+
             binding.button2.setOnClickListener {
-                view?.findNavController()?.navigate(SingleNoteFragmentDirections.actionSingleNoteFragmentToNoteFragment2())
+                view?.findNavController()?.navigate(SingleNoteFragmentDirections.actionSingleNoteFragmentToNoteFragment2(calendar))
             }
 
         return binding.root //inflater.inflate(R.layout.single_note_fragment, container, false)
