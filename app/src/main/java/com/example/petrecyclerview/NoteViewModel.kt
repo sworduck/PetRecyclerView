@@ -17,7 +17,9 @@ import java.io.IOException
 import java.io.InputStream
 import java.io.InputStreamReader
 import java.sql.Timestamp
+import java.time.Instant
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import java.util.*
 
 
@@ -122,6 +124,39 @@ class NoteViewModel : ViewModel() {
 
         noteAdapter = NoteAdapter(noteList,onClickListener,this)
         return noteAdapter
+    }
+
+    fun holderNoteDescriptionText(note:Note):String{
+        return if(note.description != "0") {
+            "${note.description} ${
+                Instant.ofEpochMilli(note.date_start * 1000).atZone(
+                    TimeZone.getDefault().toZoneId()
+                ).toLocalDateTime().format(DateTimeFormatter.ofPattern("HH:mm"))
+            }"
+        } else{
+            "-"
+        }
+    }
+    fun holderNoteDescriptionSetOnClickListenerLine(note: Note):String{
+        return if(note.description != "0") {
+            val ldt: LocalDateTime = LocalDateTime.ofInstant(
+                Instant.ofEpochSecond(note.date_start.toLong()),
+                TimeZone.getDefault().toZoneId()
+            )
+            "Название: ${note.name};\nОписание: ${note.description};\nВремя: ${ldt.format(
+                DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"))}"
+        } else{
+            "-"
+        }
+    }
+    fun holderNoteDescriptionSetOnClickListenerCalendar(note: Note):Calendar{
+        return if(note.description != "0") {
+            val calendar: Calendar = Calendar.getInstance()
+            calendar.timeInMillis = note.date_start * 1000
+            calendar
+        } else{
+            calendar2
+        }
     }
 
 }

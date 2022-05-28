@@ -12,7 +12,7 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
 
-class NoteAdapter(private var notes: List<Note>, private val onClickListener: NoteAdapter.OnNoteClickListener,private val noteViewModel: NoteViewModel):RecyclerView.Adapter<NoteAdapter.ViewHolder>() {
+class NoteAdapter(private var notes: List<Note>, private val onClickListener: OnNoteClickListener,private val noteViewModel: NoteViewModel):RecyclerView.Adapter<NoteAdapter.ViewHolder>() {
     private val nowTime: List<String> = listOf("1:00","2:00","3:00","4:00","5:00","6:00","7:00","8:00"
         ,"9:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00"
         ,"21:00","22:00","23:00","00:00")
@@ -34,37 +34,12 @@ class NoteAdapter(private var notes: List<Note>, private val onClickListener: No
     //никакой логики тут!!!
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.noteTime.text = nowTime[position]
-                if(notes[position].description != "0") {
-                    holder.noteDescription.text = "${notes[position].description} ${
-                        Instant.ofEpochMilli(notes[position].date_start * 1000).atZone(
-                            TimeZone.getDefault().toZoneId()
-                        ).toLocalDateTime().format(DateTimeFormatter.ofPattern("HH:mm"))
-                    }"
-                    holder.noteDescription.setOnClickListener {
-                        //viewModel.functionInsideAdapter()
-                        val line = if(notes[position].name != "0") {
-                            val ldt: LocalDateTime = LocalDateTime.ofInstant(
-                                Instant.ofEpochSecond(notes[position].date_start.toLong()),
-                                TimeZone.getDefault().toZoneId()
-                            )
-                            "Название: ${notes[position].name};\nОписание: ${notes[position].description};\nВремя: ${ldt.format(
-                                DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm"))}"
-                        } else{
-                            "-"
-                        }
-                        val calendar: Calendar = Calendar.getInstance()
-                        calendar.timeInMillis = notes[position].date_start * 1000
-                        onClickListener.onNoteClick(line,calendar)
-                    }
-                }
-                else {
-                    holder.noteDescription.text = "-"
-                    holder.noteDescription.setOnClickListener {
-                        //viewModel.functionInsideAdapter()
-                        onClickListener.onNoteClick("-", noteViewModel.calendar2)
-                    }
-                }
-
+        holder.noteDescription.text = noteViewModel.holderNoteDescriptionText(notes[position])
+        val line = noteViewModel.holderNoteDescriptionSetOnClickListenerLine(notes[position])
+        val calendar3 = noteViewModel.holderNoteDescriptionSetOnClickListenerCalendar(notes[position])
+        holder.noteDescription.setOnClickListener {
+            onClickListener.onNoteClick(line,calendar3)
+        }
     }
 
     override fun getItemCount(): Int {
