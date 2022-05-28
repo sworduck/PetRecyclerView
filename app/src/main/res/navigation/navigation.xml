@@ -26,7 +26,10 @@
             android:id="@+id/action_singleNoteFragment_to_noteFragment2"
             app:destination="@id/noteFragment2" />
         <argument
-            android:name="note"
-            app:argType="com.example.petrecyclerview.Note" />
+            android:name="calendarNoteFragment"
+            app:argType="java.util.Calendar" />
+        <argument
+            android:name="line"
+            app:argType="string" />
     </fragment>
 </navigation>

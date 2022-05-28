@@ -31,16 +31,19 @@ class SingleNoteFragment : Fragment() {
 
             val args = SingleNoteFragmentArgs.fromBundle(requireArguments())
 
-            binding.textView2.text = viewModel.noteToStringForThisFragment(args.note)
+            //binding.textView2.text = viewModel.noteToStringForThisFragment(args.note)
+            binding.textView2.text = args.line
 
-
+                /*
                 val calendar: Calendar = Calendar.getInstance()
                 calendar.timeInMillis = args.note.date_start * 1000
                 Log.i("TAG", "год: ${calendar.time.year}, ${calendar.time}")
 
+                 */
+
 
             binding.button2.setOnClickListener {
-                view?.findNavController()?.navigate(SingleNoteFragmentDirections.actionSingleNoteFragmentToNoteFragment2(calendar))
+                view?.findNavController()?.navigate(SingleNoteFragmentDirections.actionSingleNoteFragmentToNoteFragment2(args.calendarNoteFragment))
             }
 
         return binding.root //inflater.inflate(R.layout.single_note_fragment, container, false)

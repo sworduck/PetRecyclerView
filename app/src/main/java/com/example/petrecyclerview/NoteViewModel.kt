@@ -22,8 +22,8 @@ import java.util.*
 
 
 class NoteViewModel : ViewModel() {
-    //пробую менять календарь
     val calendar = MutableLiveData<Calendar>()
+    var calendar2 = Calendar.getInstance()
 
     private var noteList: MutableList<Note> = mutableListOf()
 
@@ -90,7 +90,7 @@ class NoteViewModel : ViewModel() {
 
     fun eventOfDay(eventDay: EventDay?) {
         //изменяю календарь
-        calendar.value =eventDay!!.calendar
+        calendar2 =eventDay!!.calendar
         //изменяю календарь
         val ldt = LocalDateTime.ofInstant(eventDay!!.calendar.toInstant(),eventDay!!.calendar.timeZone.toZoneId())
         var noteListRealm = realm.where(Note::class.java).between("date_start",eventDay.calendar.timeInMillis/1000,eventDay.calendar.timeInMillis/1000+86400).findAll()
@@ -120,7 +120,7 @@ class NoteViewModel : ViewModel() {
 
         //noteList.add(0,Note(21125,"name","description"))
 
-        noteAdapter = NoteAdapter(noteList,onClickListener)
+        noteAdapter = NoteAdapter(noteList,onClickListener,this)
         return noteAdapter
     }
 

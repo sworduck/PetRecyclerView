@@ -23,8 +23,8 @@ class NoteFragment : Fragment() {
     private lateinit var binding: NoteFragmentBinding
 
     private val onClickListener: NoteAdapter.OnNoteClickListener = object :NoteAdapter.OnNoteClickListener{
-        override fun onNoteClick(note: Note) {
-            view?.findNavController()?.navigate(NoteFragmentDirections.actionNoteFragment2ToSingleNoteFragment(note))
+        override fun onNoteClick(line:String,calendarNoteFragment: Calendar) {
+            view?.findNavController()?.navigate(NoteFragmentDirections.actionNoteFragment2ToSingleNoteFragment(calendarNoteFragment, line))
         }
     }
     override fun onCreateView(
@@ -32,6 +32,7 @@ class NoteFragment : Fragment() {
         binding = DataBindingUtil.inflate(inflater,R.layout.note_fragment,container,false)
 
         viewModel = ViewModelProvider(this)[NoteViewModel::class.java]
+        viewModel.initRealm(this.requireActivity().applicationContext)
         //изменение календаря
         binding.calendarView.setDate(viewModel.calendar.value)
         Log.i("TAG", "create fragment")
@@ -43,12 +44,24 @@ class NoteFragment : Fragment() {
 
         try {
             val args = NoteFragmentArgs.fromBundle(requireArguments())
-            if(args.calendar.timeInMillis!=0L)
             binding.calendarView.setDate(args.calendar)
             Log.i("TAG", "год: ${args.calendar.time.year}, ${args.calendar.time}")
+            val calendar = args.calendar
+            calendar.set(Calendar.HOUR_OF_DAY, 0);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.MILLISECOND, 0);
+            viewModel.eventOfDay(EventDay(calendar))
         }catch (e:Exception){
-
+            val calendar = Calendar.getInstance()
+            calendar.set(Calendar.HOUR_OF_DAY, 0);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+            calendar.set(Calendar.MILLISECOND, 0);
+            viewModel.eventOfDay(EventDay(calendar))
         }
+
+
 
 
         //вешаю обсервер на календарь НЕ РАБОТАЕТ
@@ -64,20 +77,6 @@ class NoteFragment : Fragment() {
             //binding.calendarView.setDate(eventDay.calendar)
             viewModel.eventOfDay(eventDay)
         }
-        viewModel.initRealm(this.requireActivity().applicationContext)
-
-
-        //проверка на наличие дел текущего дня
-        //этого тут не должно быть, грязно
-        /*
-        val currentDay = Calendar.getInstance()
-        currentDay.set(Calendar.HOUR_OF_DAY, 0);
-        currentDay.set(Calendar.MINUTE, 0);
-        currentDay.set(Calendar.SECOND, 0);
-        currentDay.set(Calendar.MILLISECOND, 0);
-        viewModel.eventOfDay(EventDay(currentDay))
-
-         */
 
         return binding.root //inflater.inflate(R.layout.note_fragment, container, false)
     }
