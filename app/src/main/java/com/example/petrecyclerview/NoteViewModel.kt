@@ -133,7 +133,7 @@ class NoteViewModel : ViewModel() {
 
     fun holderNoteDescriptionText(note:Note):String{
         return if(note.description != "0") {
-            "${note.description} ${
+            "${note.name} ${
                 Instant.ofEpochMilli(note.date_start * 1000).atZone(
                     TimeZone.getDefault().toZoneId()
                 ).toLocalDateTime().format(DateTimeFormatter.ofPattern("HH:mm"))

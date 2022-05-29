@@ -36,15 +36,16 @@
             app:layout_constraintVertical_bias="0.609"
             tools:listitem="@layout/note_item"></androidx.recyclerview.widget.RecyclerView>
 
-        <Button
-            android:id="@+id/button"
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/floatingActionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="124dp"
-            android:text="Button"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Перемешать" />
+            android:layout_marginEnd="36dp"
+            android:layout_marginBottom="28dp"
+            android:clickable="true"
+            android:src="@drawable/ic_add"
+            android:contentDescription="press this"
+            app:layout_constraintBottom_toBottomOf="@+id/noteRecyclerView"
+            app:layout_constraintEnd_toEndOf="@+id/noteRecyclerView" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

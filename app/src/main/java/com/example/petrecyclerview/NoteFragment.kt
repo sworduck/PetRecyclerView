@@ -72,7 +72,7 @@ class NoteFragment : Fragment() {
 
          */
 
-        binding.button.setOnClickListener {
+        binding.floatingActionButton.setOnClickListener {
             view?.findNavController()?.navigate(NoteFragmentDirections.actionNoteFragment2ToAddNoteFragment())
         }
 
