@@ -16,6 +16,9 @@
         <argument
             android:name="calendar"
             app:argType="java.util.Calendar" />
+        <action
+            android:id="@+id/action_noteFragment2_to_addNoteFragment"
+            app:destination="@id/addNoteFragment" />
     </fragment>
     <fragment
         android:id="@+id/singleNoteFragment"
@@ -31,5 +34,14 @@
         <argument
             android:name="line"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/addNoteFragment"
+        android:name="com.example.petrecyclerview.AddNoteFragment"
+        android:label="add_note_fragment"
+        tools:layout="@layout/add_note_fragment" >
+        <action
+            android:id="@+id/action_addNoteFragment_to_noteFragment2"
+            app:destination="@id/noteFragment2" />
     </fragment>
 </navigation>

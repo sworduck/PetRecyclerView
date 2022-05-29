@@ -31,7 +31,6 @@ class NoteAdapter(private var notes: List<Note>, private val onClickListener: On
     }
 
 
-    //никакой логики тут!!!
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.noteTime.text = nowTime[position]
         holder.noteDescription.text = noteViewModel.holderNoteDescriptionText(notes[position])

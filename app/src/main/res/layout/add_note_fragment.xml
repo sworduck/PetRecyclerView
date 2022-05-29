@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".AddNoteFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="40dp"
+            android:text="Время окончания"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/datePicker" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="268dp"
+            android:text="Время начала"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/datePicker" />
+
+        <EditText
+            android:id="@+id/titleEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="16dp"
+            android:hint="@string/note_name"
+            android:inputType="textCapWords"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/descriptionEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:hint="@string/note_description"
+            android:inputType="textCapWords"
+            app:layout_constraintEnd_toEndOf="@+id/titleEditText"
+            app:layout_constraintStart_toStartOf="@+id/titleEditText"
+            app:layout_constraintTop_toBottomOf="@+id/titleEditText" />
+
+        <Button
+            android:id="@+id/saveButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="184dp"
+            android:text="Save"
+            app:layout_constraintEnd_toEndOf="@+id/descriptionEditText"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/descriptionEditText"
+            app:layout_constraintTop_toBottomOf="@+id/datePicker" />
+
+        <DatePicker
+            android:id="@+id/datePicker"
+            android:layout_width="379dp"
+            android:layout_height="95dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="40dp"
+            android:calendarViewShown="false"
+            android:datePickerMode="spinner"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/descriptionEditText" />
+
+        <TimePicker
+            android:id="@+id/timePickerStart"
+            android:layout_width="176dp"
+            android:layout_height="114dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="48dp"
+            android:timePickerMode="spinner"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/datePicker" />
+
+        <TimePicker
+            android:id="@+id/timePickerFinish"
+            android:layout_width="171dp"
+            android:layout_height="112dp"
+            android:layout_marginLeft="224dp"
+            android:layout_marginTop="52dp"
+            android:timePickerMode="spinner"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/datePicker" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="148dp"
+            android:text="Дата начала дела"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/descriptionEditText" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

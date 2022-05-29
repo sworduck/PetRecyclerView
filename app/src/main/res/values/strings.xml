@@ -2,5 +2,7 @@
     <string name="app_name">PetRecyclerView</string>
     <string name="default_time">00:00</string>
     <string name="description_text">описание</string>
+    <string name="note_name">Введите название</string>
+    <string name="note_description">Введите описание</string>
 
 </resources>

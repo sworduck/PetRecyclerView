@@ -61,7 +61,7 @@ class NoteViewModel : ViewModel() {
     }
 
     fun initRealm(context: Context){
-        noteList2 = loadNotes(context)!!
+        //noteList2 = loadNotes(context)!!
         Realm.init(context)
         Realm.setDefaultConfiguration(
             RealmConfiguration.Builder()
@@ -71,9 +71,14 @@ class NoteViewModel : ViewModel() {
                 .build()
         )
         realm = Realm.getDefaultInstance()
+        val list = realm.where(Note::class.java).findAll()
+        val a = 1+1
+        /*
         realm.executeTransaction {
             it.insertOrUpdate(noteList2)
         }
+
+         */
     }
 
     private fun loadNotes(context: Context): MutableList<Note>? {

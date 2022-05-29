@@ -72,6 +72,9 @@ class NoteFragment : Fragment() {
 
          */
 
+        binding.button.setOnClickListener {
+            view?.findNavController()?.navigate(NoteFragmentDirections.actionNoteFragment2ToAddNoteFragment())
+        }
 
         binding.calendarView.setOnDayClickListener { eventDay ->
             //binding.calendarView.setDate(eventDay.calendar)

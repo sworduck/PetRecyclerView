@@ -27,7 +27,7 @@ class SingleNoteFragment : Fragment() {
 
             binding = DataBindingUtil.inflate(inflater,R.layout.single_note_fragment,container,false)
 
-            viewModel =ViewModelProvider(this).get(SingleNoteViewModel::class.java)
+            viewModel = ViewModelProvider(this)[SingleNoteViewModel::class.java]
 
             val args = SingleNoteFragmentArgs.fromBundle(requireArguments())
 
